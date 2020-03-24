@@ -35,8 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,17 +64,41 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\ArticlesView.cs" />
+    <Compile Include="Models\Auto.cs" />
+    <Compile Include="Models\AutoType.cs" />
+    <Compile Include="Models\Color.cs" />
+    <Compile Include="EF\Context.cs" />
+    <Compile Include="Models\Desicion.cs" />
+    <Compile Include="Models\District.cs" />
+    <Compile Include="Models\Driver.cs" />
+    <Compile Include="Models\Infrigment.cs" />
+    <Compile Include="Models\InfrigmentInDecision.cs" />
+    <Compile Include="Models\InfrigmentKind.cs" />
+    <Compile Include="Models\Make.cs" />
+    <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\Policeman.cs" />
+    <Compile Include="Models\PolicemenInPost.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Punishment.cs" />
+    <Compile Include="Models\PunishmentExecution.cs" />
+    <Compile Include="Models\PunishmentsView.cs" />
+    <Compile Include="Models\Street.cs" />
+    <Compile Include="Models\sysdiagram.cs" />
+    <Compile Include="Services\WindowManager.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="Windows\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +119,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -93,6 +127,31 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="ControlTemplates\MainTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Geometry\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ExitButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\SettingsButton.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
