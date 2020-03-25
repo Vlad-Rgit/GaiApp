@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GaiApp.Models;
+using GaiApp.Services;
+using GaiApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +20,17 @@ namespace GaiApp.Windows
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : EntityWindow
     {
-        public MainWindow()
-        {
+
+        public MainWindow() : base(typeof(MainViewModel))
+        {        
             InitializeComponent();
+        }
+
+        private void DockPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

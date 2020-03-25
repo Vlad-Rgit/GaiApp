@@ -7,7 +7,7 @@ namespace GaiApp.Models
     using System.Data.Entity.Spatial;
 
     [Table("Auto")]
-    public partial class Auto
+    public partial class Auto : Entity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Auto()

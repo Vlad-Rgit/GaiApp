@@ -7,7 +7,7 @@ namespace GaiApp.Models
     using System.Data.Entity.Spatial;
 
     [Table("Desicion")]
-    public partial class Desicion
+    public partial class Desicion : Entity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Desicion()

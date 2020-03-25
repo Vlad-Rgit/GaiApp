@@ -6,7 +6,7 @@ namespace GaiApp.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class sysdiagram
+    public partial class sysdiagram : Entity
     {
         [Required]
         [StringLength(128)]

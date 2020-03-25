@@ -7,7 +7,7 @@ namespace GaiApp.Models
     using System.Data.Entity.Spatial;
 
     [Table("InfrigmentInDecision")]
-    public partial class InfrigmentInDecision
+    public partial class InfrigmentInDecision : Entity
     {
         [Key]
         [Column(Order = 0)]

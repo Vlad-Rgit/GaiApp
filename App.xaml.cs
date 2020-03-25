@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using GaiApp.Windows;
+using GaiApp.Services;
 
 namespace GaiApp
 {
@@ -13,5 +15,19 @@ namespace GaiApp
     /// </summary>
     public partial class App : Application
     {
+        [STAThread]
+        static void Main()
+        {
+            App app = new App();
+            app.InitializeComponent();
+
+            LoginWindow win =
+                WindowManager.Instance.CreateStartWindow();
+
+          
+
+            app.Run(win);
+        }
+
     }
 }

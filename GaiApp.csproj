@@ -60,15 +60,25 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Commands\RelayCommandT.cs" />
+    <Compile Include="Migrations\202003250907152_init.cs" />
+    <Compile Include="Migrations\202003250907152_init.Designer.cs">
+      <DependentUpon>202003250907152_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003250909150_policemanPasswordAdded.cs" />
+    <Compile Include="Migrations\202003250909150_policemanPasswordAdded.Designer.cs">
+      <DependentUpon>202003250909150_policemanPasswordAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\ArticlesView.cs" />
@@ -79,12 +89,14 @@
     <Compile Include="Models\Desicion.cs" />
     <Compile Include="Models\District.cs" />
     <Compile Include="Models\Driver.cs" />
+    <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Infrigment.cs" />
     <Compile Include="Models\InfrigmentInDecision.cs" />
     <Compile Include="Models\InfrigmentKind.cs" />
     <Compile Include="Models\Make.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\Policeman.cs" />
+    <Compile Include="Models\PolicemanPartial.cs" />
     <Compile Include="Models\PolicemenInPost.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Punishment.cs" />
@@ -94,12 +106,15 @@
     <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Services\WindowManager.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\EntityWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -115,6 +130,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\202003250907152_init.resx">
+      <DependentUpon>202003250907152_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003250909150_policemanPasswordAdded.resx">
+      <DependentUpon>202003250909150_policemanPasswordAdded.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -128,7 +149,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UserControls\" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="ControlTemplates\MainTemplates.xaml">
       <SubType>Designer</SubType>
@@ -152,6 +175,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\SettingsButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

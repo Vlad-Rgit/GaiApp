@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using GaiApp.Models;
 using GaiApp.ViewModels;
 
 namespace GaiApp.Windows
@@ -18,18 +19,22 @@ namespace GaiApp.Windows
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class LoginWindow : EntityWindow
     {
-        public LoginViewModel ViewModel { get; set; } = new LoginViewModel();
-
-        public LoginWindow()
-        {           
+     
+        public LoginWindow() : base(typeof(LoginViewModel))
+        {
             InitializeComponent();
         }
 
         private void DockPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

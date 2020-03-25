@@ -7,7 +7,7 @@ namespace GaiApp.Models
     using System.Data.Entity.Spatial;
 
     [Table("Driver")]
-    public partial class Driver
+    public partial class Driver : Entity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Driver()

@@ -7,7 +7,7 @@ namespace GaiApp.Models
     using System.Data.Entity.Spatial;
 
     [Table("Policeman")]
-    public partial class Policeman
+    public partial class Policeman : Entity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Policeman()
@@ -32,6 +32,10 @@ namespace GaiApp.Models
         [Required]
         [StringLength(255)]
         public string Patronymic { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Password { get; set; }
 
         public byte[] Photo { get; set; }
 

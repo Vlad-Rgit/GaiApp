@@ -7,7 +7,7 @@ namespace GaiApp.Models
     using System.Data.Entity.Spatial;
 
     [Table("ArticlesView")]
-    public partial class ArticlesView
+    public partial class ArticlesView : Entity
     {
         [Key]
         [Column(Order = 0)]

@@ -21,6 +21,22 @@
 
 
 
+    <ControlTemplate x:Key="PasswordboxWithShadow" TargetType="PasswordBox">
+        <Grid>
+            <Border  Background="White" BorderThickness="1" BorderBrush="#FFABADB3"
+                   >
+                <ScrollViewer x:Name="PART_ContentHost" Padding="{TemplateBinding Padding}"/>
+            </Border>
+            <Rectangle Fill="#FFABADB3"  VerticalAlignment="Top" Height="1" Margin="1,0,1,0">
+                <Rectangle.Effect>
+                    <DropShadowEffect ShadowDepth="0.5" Color="Black" BlurRadius="1"
+                                      Opacity="0.45" Direction="270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Grid>
+    </ControlTemplate>
+
+
 
 
 
@@ -102,16 +118,19 @@
                                              />
                         </Storyboard>
                     </VisualState>
+
+
                 </VisualStateGroup>
+
             </VisualStateManager.VisualStateGroups>
 
 
             <Rectangle Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" 
-                       RenderTransformOrigin="0.5,0.5"
+                       RenderTransformOrigin="0.5,0.5" StrokeThickness="{TemplateBinding BorderThickness}"
                        x:Name="back">
 
                 <Rectangle.Effect>
-                    <DropShadowEffect x:Name="shadow" ShadowDepth="1.5" Opacity="0.6" BlurRadius="1"/>
+                    <DropShadowEffect x:Name="shadow" ShadowDepth="1.7" Opacity="0.5" BlurRadius="1"/>
                 </Rectangle.Effect>
                 <Rectangle.RenderTransform>
                     <TransformGroup>
@@ -127,6 +146,9 @@
                     <ScaleTransform x:Name="scaleText" ScaleX="1" ScaleY="1"/>
                 </ContentPresenter.LayoutTransform>
             </ContentPresenter>
+
+
+
         </Grid>
     </ControlTemplate>
 

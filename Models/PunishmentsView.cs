@@ -7,7 +7,7 @@ namespace GaiApp.Models
     using System.Data.Entity.Spatial;
 
     [Table("PunishmentsView")]
-    public partial class PunishmentsView
+    public partial class PunishmentsView : Entity
     {
         [Key]
         [Column("Номер протокола", Order = 0)]
