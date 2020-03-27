@@ -10,11 +10,14 @@ using GaiApp.Services;
 using System.Windows;
 using GaiApp.Windows;
 using System.Windows.Controls;
+using System.Security;
+using GaiApp.EF.Repositories;
+using GaiApp.ViewModels.Abstracts;
 
 namespace GaiApp.ViewModels
 {
  
-    public class LoginViewModel : EntityViewModel
+    public class LoginViewModel : SingleViewModel<Policeman>
     {
         private RelayCommand<PasswordBox> _loginCommand;
 
@@ -23,22 +26,18 @@ namespace GaiApp.ViewModels
 
 
 
-        public Policeman Policeman { get; set; }
-
-        public LoginViewModel(Entity entity)
+        public LoginViewModel(Entity entity) : base(entity)
         {
-            Policeman = entity as Policeman;
+         
         }
 
 
         public void Login(PasswordBox box) 
-        {
-            using(Context context = new Context())
+        {         
+            using(PolicemanRepo repo = new PolicemanRepo())
             {
-                Policeman loggedPoliceman = context.Policemen
-                    .FirstOrDefault(p => p.PolicemanNumber == Policeman.PolicemanNumber &&
-                                        p.Password == box.Password);
-
+                Policeman loggedPoliceman = 
+                    repo.GetPoliceman(Entity.PolicemanNumber, box.Password);
 
                 if (loggedPoliceman == null)
                 {
@@ -47,13 +46,13 @@ namespace GaiApp.ViewModels
                 else
                 {
                     WindowManager.Instance
-                        .HideWindow(typeof(LoginWindow));
+                        .HideWindow<LoginWindow>();
 
                     WindowManager.Instance
-                        .CreateEntityWindow(typeof(MainWindow), loggedPoliceman);
+                        .CreateEntityWindow<MainWindow>(loggedPoliceman);
 
                     WindowManager.Instance
-                        .ShowWindow(typeof(LoginWindow));
+                        .ShowWindow<LoginWindow>();
                 }
             }
         }

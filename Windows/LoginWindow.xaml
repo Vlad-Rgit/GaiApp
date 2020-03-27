@@ -1,9 +1,14 @@
-﻿<local:EntityWindow x:Class="GaiApp.Windows.LoginWindow"
+﻿<abstracts:EntityWindow x:TypeArguments="viewmodels:LoginViewModel, m:Policeman"
+        xmlns:m="clr-namespace:GaiApp.Models"       
+        xmlns:viewmodels="clr-namespace:GaiApp.ViewModels" FontSize="30" ResizeMode="NoResize"
+        x:Class="GaiApp.Windows.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+     
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GaiApp.Windows" FontSize="30" ResizeMode="NoResize"
+        xmlns:abstracts="clr-namespace:GaiApp.Windows.Abstracts"
+        xmlns:local="clr-namespace:GaiApp.Windows"
         mc:Ignorable="d" FontFamily="Lato" Foreground="White" Background="{DynamicResource BackgoundBrush}"
         Title="LoginWindow" Height="800" Width="1200" WindowStyle="None"
         DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
@@ -66,7 +71,7 @@
 
                 <TextBox Grid.Column="1" Template="{StaticResource TextboxWithShadow}" FontSize="20" CaretBrush="{DynamicResource AttentionBrush}"
                          Height="30" VerticalAlignment="Top" Margin="5,0,5,0" Background="White" Foreground="{DynamicResource AttentionBrush}"                                    
-                         MaxWidth="206" Text="{Binding Path=Policeman.PolicemanNumber}" TabIndex="0"/>
+                         MaxWidth="206" Text="{Binding Path=Entity.PolicemanNumber}" TabIndex="0"/>
                 <PasswordBox Grid.Column="1" Template="{StaticResource PasswordboxWithShadow}" Grid.Row="1" 
                          FontSize="20" Height="30"  VerticalAlignment="Bottom"  Margin="5,0,5,0"
                          Foreground="{DynamicResource AttentionBrush}" CaretBrush="{DynamicResource AttentionBrush}"
@@ -75,10 +80,12 @@
             </Grid>
 
 
-            <Button Content="Войти" FontSize="20" MinHeight="30" MaxWidth="150" Margin="0,15,0,0" 
-                    Background="{StaticResource ButtonBackgroundBrush}" Foreground="White" BorderBrush="Transparent"
-                    Template="{StaticResource CustomButton}"  TabIndex="2"
-                    Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=passwordBox}"
+            <Button Content="Войти" FontSize="20" MinHeight="30" 
+                    MaxWidth="150" Margin="0,15,0,0" 
+                    Style="{StaticResource MainButton}"
+                    TabIndex="2"
+                    Command="{Binding LoginCommand}" 
+                    CommandParameter="{Binding ElementName=passwordBox}"
                     IsDefault="True"
                  >
             
@@ -87,4 +94,4 @@
         </StackPanel>
 
     </Grid>
-</local:EntityWindow>
+</abstracts:EntityWindow>

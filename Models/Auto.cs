@@ -5,6 +5,7 @@ namespace GaiApp.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using GaiApp.Attributes;
 
     [Table("Auto")]
     public partial class Auto : Entity
@@ -17,6 +18,7 @@ namespace GaiApp.Models
 
         public int AutoId { get; set; }
 
+        [SearchProperty(nameof(DriverLicense))]
         [Required]
         [StringLength(50)]
         public string DriverLicense { get; set; }
@@ -27,9 +29,11 @@ namespace GaiApp.Models
 
         public int ColorId { get; set; }
 
+        [SearchProperty(nameof(RegistrationDate))]
         [Column(TypeName = "date")]
         public DateTime RegistrationDate { get; set; }
 
+        [SearchProperty(nameof(MadeDate))]
         [Column(TypeName = "date")]
         public DateTime MadeDate { get; set; }
 

@@ -13,13 +13,12 @@ namespace GaiApp.Models
         public Desicion()
         {
             InfrigmentInDecisions = new HashSet<InfrigmentInDecision>();
+            Punishments = new HashSet<Punishment>();
         }
 
         public int DesicionId { get; set; }
 
         public int AutoId { get; set; }
-
-        public int PostId { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -42,7 +41,8 @@ namespace GaiApp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InfrigmentInDecision> InfrigmentInDecisions { get; set; }
 
-        public virtual Post Post { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Punishment> Punishments { get; set; }
 
         public virtual Driver Driver { get; set; }
 

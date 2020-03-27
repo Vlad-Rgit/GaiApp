@@ -9,7 +9,7 @@
     public partial class Context : DbContext
     {
         public Context()
-            : base("name=Context")
+            : base("name=Context4")
         {
         }
 
@@ -26,6 +26,7 @@
         public virtual DbSet<InfrigmentKind> InfrigmentKinds { get; set; }
         public virtual DbSet<Make> Makes { get; set; }
         public virtual DbSet<Model> Models { get; set; }
+        public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Policeman> Policemen { get; set; }
         public virtual DbSet<PolicemenInPost> PolicemenInPosts { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
@@ -76,8 +77,10 @@
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Desicion>()
-                .HasOptional(e => e.Post)
-                .WithRequired(e => e.Desicion);
+                .HasMany(e => e.Punishments)
+                .WithRequired(e => e.Desicion)
+                .HasForeignKey(e => e.DecisionId)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<District>()
                 .HasMany(e => e.Addresses)

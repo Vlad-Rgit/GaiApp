@@ -25,6 +25,8 @@ namespace GaiApp.Models
 
         public DateTime PunishmentDateTime { get; set; }
 
+        public virtual Desicion Desicion { get; set; }
+
         public virtual InfrigmentInDecision InfrigmentInDecision { get; set; }
 
         public virtual Policeman Policeman { get; set; }

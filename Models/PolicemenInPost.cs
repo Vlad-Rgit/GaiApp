@@ -18,7 +18,7 @@ namespace GaiApp.Models
         [Column(Order = 1)]
         [StringLength(50)]
         public string PolicemanNumber { get; set; }
-        
+
         public TimeSpan? ShiftStart { get; set; }
 
         public TimeSpan? ShiftEnd { get; set; }

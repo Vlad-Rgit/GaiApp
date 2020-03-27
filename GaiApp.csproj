@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -68,17 +70,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Attributes\SearchPropertyAttribute.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommandT.cs" />
-    <Compile Include="Migrations\202003250907152_init.cs" />
-    <Compile Include="Migrations\202003250907152_init.Designer.cs">
-      <DependentUpon>202003250907152_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003250909150_policemanPasswordAdded.cs" />
-    <Compile Include="Migrations\202003250909150_policemanPasswordAdded.Designer.cs">
-      <DependentUpon>202003250909150_policemanPasswordAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Converters\DescriptionConverter.cs" />
+    <Compile Include="Converters\MultiParametrsConverter.cs" />
+    <Compile Include="Converters\ToStringConverter.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\ArticlesView.cs" />
@@ -95,6 +92,7 @@
     <Compile Include="Models\InfrigmentKind.cs" />
     <Compile Include="Models\Make.cs" />
     <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\News.cs" />
     <Compile Include="Models\Policeman.cs" />
     <Compile Include="Models\PolicemanPartial.cs" />
     <Compile Include="Models\PolicemenInPost.cs" />
@@ -102,19 +100,31 @@
     <Compile Include="Models\Punishment.cs" />
     <Compile Include="Models\PunishmentExecution.cs" />
     <Compile Include="Models\PunishmentsView.cs" />
+    <Compile Include="EF\Repositories\PolicemanRepo.cs" />
+    <Compile Include="EF\Repositories\Repository.cs" />
+    <Compile Include="EF\Repositories\IRepository.cs" />
     <Compile Include="Models\Street.cs" />
     <Compile Include="Models\sysdiagram.cs" />
+    <Compile Include="SearchProperties\SearchProperty.cs" />
+    <Compile Include="Services\ContainerManager.cs" />
     <Compile Include="Services\WindowManager.cs" />
+    <Compile Include="ViewModels\Abstracts\AddViewModel.cs" />
+    <Compile Include="ViewModels\AutosViewModel.cs" />
+    <Compile Include="ViewModels\Abstracts\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Abstracts\ListViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\EntityViewModel.cs" />
+    <Compile Include="ViewModels\Abstracts\SingleViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Windows\AutosWindow.xaml.cs">
+      <DependentUpon>AutosWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\EntityWindow.cs" />
+    <Compile Include="Windows\Abstracts\EntityWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -130,12 +140,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\202003250907152_init.resx">
-      <DependentUpon>202003250907152_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003250909150_policemanPasswordAdded.resx">
-      <DependentUpon>202003250909150_policemanPasswordAdded.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -161,6 +165,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\AutosWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,6 +186,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\DbIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\work.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

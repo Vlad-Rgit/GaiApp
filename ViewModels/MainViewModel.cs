@@ -1,19 +1,36 @@
-﻿using GaiApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using GaiApp.Models;
+using GaiApp.EF.Repositories;
+using GaiApp.Commands;
+using System.Diagnostics;
+using GaiApp.ViewModels.Abstracts;
+using GaiApp.Services;
+using GaiApp.Windows;
 namespace GaiApp.ViewModels
 {
-    public class MainViewModel : EntityViewModel
+    public class MainViewModel : SingleViewModel<Policeman>
     {
-        public Policeman Policeman { get; set; }
+        private RelayCommand<News> _openBrowserLinkCommand;
 
-        public MainViewModel(Entity entity)
+        public RelayCommand<News> OpenBrowserLinkCommand =>
+            _openBrowserLinkCommand ?? (_openBrowserLinkCommand = new RelayCommand<News>(OpenBrowser));
+
+        public ObservableCollection<News> News { get; set; }
+
+        public MainViewModel(Entity entity) : base(entity)
         {
-            Policeman = entity as Policeman;
+            using (Repository<News> repo = new Repository<News>())
+                News = new ObservableCollection<News>(repo.GetAll());
+        }
+
+        public void OpenBrowser(News news)
+        {
+            Process.Start(news.BrowserLink);
         }
     }
 }

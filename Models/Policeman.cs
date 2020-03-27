@@ -33,11 +33,11 @@ namespace GaiApp.Models
         [StringLength(255)]
         public string Patronymic { get; set; }
 
+        public byte[] Photo { get; set; }
+
         [Required]
         [StringLength(50)]
         public string Password { get; set; }
-
-        public byte[] Photo { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Desicion> Desicions { get; set; }

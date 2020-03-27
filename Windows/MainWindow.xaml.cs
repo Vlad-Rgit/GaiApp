@@ -14,16 +14,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using GaiApp.Windows.Abstracts;
 
 namespace GaiApp.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : EntityWindow
-    {
-
-        public MainWindow() : base(typeof(MainViewModel))
+    public partial class MainWindow : 
+        EntityWindow<MainViewModel, Policeman>
+    { 
+        public MainWindow() 
         {        
             InitializeComponent();
         }
