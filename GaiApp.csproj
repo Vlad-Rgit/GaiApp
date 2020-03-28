@@ -70,6 +70,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Attributes\RangePropertyAttribute.cs" />
     <Compile Include="Attributes\SearchPropertyAttribute.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommandT.cs" />
@@ -105,16 +106,24 @@
     <Compile Include="EF\Repositories\IRepository.cs" />
     <Compile Include="Models\Street.cs" />
     <Compile Include="Models\sysdiagram.cs" />
+    <Compile Include="SearchProperties\RangeProperty.cs" />
     <Compile Include="SearchProperties\SearchProperty.cs" />
     <Compile Include="Services\ContainerManager.cs" />
     <Compile Include="Services\WindowManager.cs" />
     <Compile Include="ViewModels\Abstracts\AddViewModel.cs" />
+    <Compile Include="ViewModels\Abstracts\RangeSearchViewModel.cs" />
+    <Compile Include="ViewModels\Abstracts\SearchViewModel.cs" />
     <Compile Include="ViewModels\AutosViewModel.cs" />
     <Compile Include="ViewModels\Abstracts\BaseViewModel.cs" />
     <Compile Include="ViewModels\Abstracts\ListViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\Abstracts\SingleViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\TileView.cs" />
+    <Compile Include="Views\TileViewData.cs" />
+    <Compile Include="Views\TileViewItem.cs" />
+    <Compile Include="Views\TileViewItemCollection.cs" />
+    <Compile Include="Views\TileViewRow.cs" />
     <Compile Include="Windows\AutosWindow.xaml.cs">
       <DependentUpon>AutosWindow.xaml</DependentUpon>
     </Compile>
@@ -153,15 +162,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UserControls\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="ControlTemplates\MainTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Geometry\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

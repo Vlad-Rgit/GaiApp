@@ -22,9 +22,7 @@ namespace GaiApp
             app.InitializeComponent();
 
             LoginWindow win =
-                WindowManager.Instance.CreateStartWindow();
-
-          
+                WindowManager.Instance.CreateStartWindow();      
 
             app.Run(win);
         }

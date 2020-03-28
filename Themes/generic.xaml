@@ -1,0 +1,77 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:GaiApp.Themes"
+                    xmlns:views="clr-namespace:GaiApp.Views">
+
+
+
+    <Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type views:TileView},
+        ResourceId=TileView}" TargetType="{x:Type ListView}"
+        BasedOn="{StaticResource {x:Type ListBox}}">
+
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <WrapPanel Width="{Binding (FrameworkElement.ActualWidth),
+                        RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                               />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        
+    </Style>
+
+
+    <Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type views:TileView},
+        ResourceId=TileViewItem}" TargetType="{x:Type ListViewItem}"
+        BasedOn="{StaticResource {x:Type ListBoxItem}}">
+
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=Tag}">
+                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <ContentControl Grid.ColumnSpan="2"
+                            Content="{Binding ItemHeader}"/>
+
+                        <ContentControl Grid.Row="1"
+                                        Content="{Binding ItemImage}"/>
+
+                        <ItemsControl Grid.Row="1" Grid.Column="1"
+                                      ItemsSource="{Binding TileViewDataCollection}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                         <Run Text="{Binding Title}"/>
+                                         <Run Text=": "/>
+                                         <Run Text="{Binding Data, Mode=OneTime}"/>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                    
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect />
+            </Setter.Value>
+        </Setter>
+    
+    </Style>
+
+</ResourceDictionary>

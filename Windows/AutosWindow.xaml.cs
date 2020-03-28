@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using GaiApp.ViewModels;
 using GaiApp.Windows.Abstracts;
 using System.Windows.Media.Effects;
+using GaiApp.Views;
 
 namespace GaiApp.Windows
 {
@@ -33,6 +34,7 @@ namespace GaiApp.Windows
         private void DockPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+            TileView tileView = ls.View as TileView;
         }
     }
 }

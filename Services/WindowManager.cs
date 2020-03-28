@@ -117,10 +117,17 @@ namespace GaiApp.Services
                 _entityWindows[winType.FullName] = win;
             }
 
-            if (isDialog)
-                win.ShowDialog();
-            else
-                win.Show();
+            try
+            {
+                if (isDialog)
+                    win.ShowDialog();
+                else
+                    win.Show();
+            }
+            catch(InvalidOperationException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         public void ShowWindow<TWindow>()

@@ -29,10 +29,12 @@ namespace GaiApp.Models
 
         public int ColorId { get; set; }
 
+        [RangeProperty(nameof(RegistrationDate))]
         [SearchProperty(nameof(RegistrationDate))]
         [Column(TypeName = "date")]
         public DateTime RegistrationDate { get; set; }
 
+        [RangeProperty(nameof(MadeDate))]
         [SearchProperty(nameof(MadeDate))]
         [Column(TypeName = "date")]
         public DateTime MadeDate { get; set; }

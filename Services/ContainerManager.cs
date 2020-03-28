@@ -51,11 +51,48 @@ namespace GaiApp.Services
             return searchProperty;
         }
 
-        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        public RangeProperty RegisterRangeProperty(PropertyInfo propertyInfo)
         {
-            DateTime? dateTime = ((DatePicker)sender).SelectedDate;
+            RangeProperty searchProperty =
+                new RangeProperty() { PropertyInfo = propertyInfo };
 
-            _searchString.SetValue(_viewModel, dateTime.Value.ToString());
+
+            Binding beginBinding = new Binding();
+            beginBinding.Path = new PropertyPath("BeginValue");
+            beginBinding.Mode = BindingMode.OneWayToSource;
+            beginBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+
+            Binding endBinding = new Binding();
+            endBinding.Path = new PropertyPath("EndValue");
+            endBinding.Mode = BindingMode.OneWayToSource;
+            endBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+            switch (propertyInfo.PropertyType.Name)
+            {
+                case nameof(DateTime):
+                    searchProperty.BeginControl = new DatePicker();
+                    searchProperty.EndControl = new DatePicker();
+                    searchProperty.BeginControl
+                             .SetBinding(DatePicker.SelectedDateProperty, beginBinding);
+                    searchProperty.EndControl
+                             .SetBinding(DatePicker.SelectedDateProperty, endBinding);
+
+                    break;
+                default:
+                    searchProperty.BeginControl = new TextBox();
+                    searchProperty.EndControl = new TextBox();
+                    searchProperty.BeginControl
+                             .SetBinding(TextBox.TextProperty, beginBinding);
+                    searchProperty.EndControl
+                             .SetBinding(TextBox.TextProperty, endBinding);
+
+                    break;
+            }
+
+
+
+            return searchProperty;
         }
     }
 }

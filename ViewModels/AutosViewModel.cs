@@ -8,7 +8,7 @@ using GaiApp.ViewModels.Abstracts;
 
 namespace GaiApp.ViewModels
 {
-    public class AutosViewModel : ListViewModel<Auto>
+    public class AutosViewModel : RangeSearchViewModel<Auto>
     {
        
     }
