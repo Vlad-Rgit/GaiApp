@@ -36,6 +36,12 @@ namespace GaiApp.Models
         [StringLength(20)]
         public string PhoneNumber { get; set; }
 
+        [NotMapped]
+        public string FIO
+        {
+            get => $"{LastName} {Name} {Patronymic}";
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Auto> Autoes { get; set; }
 

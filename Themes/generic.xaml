@@ -3,7 +3,9 @@
                     xmlns:local="clr-namespace:GaiApp.Themes"
                     xmlns:views="clr-namespace:GaiApp.Views">
 
-
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="GaiApp;component/Themes/Styles.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type views:TileView},
         ResourceId=TileView}" TargetType="{x:Type ListView}"
@@ -26,52 +28,80 @@
         ResourceId=TileViewItem}" TargetType="{x:Type ListViewItem}"
         BasedOn="{StaticResource {x:Type ListBoxItem}}">
 
+
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="ContentTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=Tag}">
-                        
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
+                    <Border BorderThickness="2" BorderBrush="#1b262c"  Padding="10"
+                            Background="#0f4c75" >
+                        <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
+                            Path=Tag}">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
 
-                        <ContentControl Grid.ColumnSpan="2"
+                            <ContentControl Grid.ColumnSpan="2" HorizontalAlignment="Center"
+                                        FontWeight="Bold"
                             Content="{Binding ItemHeader}"/>
 
-                        <ContentControl Grid.Row="1"
+                            <ContentControl Grid.Row="1" 
                                         Content="{Binding ItemImage}"/>
 
-                        <ItemsControl Grid.Row="1" Grid.Column="1"
-                                      ItemsSource="{Binding TileViewDataCollection}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock>
-                                         <Run Text="{Binding Title}"/>
-                                         <Run Text=": "/>
-                                         <Run Text="{Binding Data, Mode=OneTime}"/>
-                                    </TextBlock>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </Grid>
-                    
+                            <ItemsControl Grid.Row="1" Grid.Column="1" Grid.IsSharedSizeScope="True"
+                                      ItemsSource="{Binding TileViewDataCollection}"
+                                          Width="255">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+
+                                        <Grid Margin="0,0,10,0" >
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition SharedSizeGroup="TitleColumn"/>
+                                                <ColumnDefinition SharedSizeGroup="DataColumn"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Content="{Binding Title}" Foreground="{StaticResource LightBrush}"/>
+                                            <Label Grid.Column="1" Content="{Binding Data}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <ToggleButton Grid.Row="2" Grid.ColumnSpan="2" DataContext="{Binding RelativeSource={RelativeSource AncestorType=ListView}}"
+                                    Content="{Binding View.ToolButtonText}" FontSize="15"
+                                    Command="{Binding View.ToolButtonCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, 
+                                                    Path=Tag.CommandParametr}"
+                                     HorizontalAlignment="Center" MinWidth="120" MinHeight="30"
+                                     IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListView}, 
+                                                    Path=View.IsPoppedUp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    >
+
+                                <ToggleButton.Style>
+                                    <Style TargetType="ToggleButton" BasedOn="{StaticResource SecondaryButton}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListView},
+                                                                    Path=View.HasToolButton}" Value="False">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ToggleButton.Style>
+                            </ToggleButton>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="BorderBrush" Value="Black"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Effect">
-            <Setter.Value>
-                <DropShadowEffect />
-            </Setter.Value>
-        </Setter>
-    
     </Style>
 
 </ResourceDictionary>

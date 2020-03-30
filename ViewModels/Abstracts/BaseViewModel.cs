@@ -8,15 +8,18 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using GaiApp.EF.Repositories;
 
 namespace GaiApp.ViewModels.Abstracts
 {
-    public class BaseViewModel<TEntity>: INotifyPropertyChanged
+    public abstract class BaseViewModel<TEntity>: INotifyPropertyChanged 
+        where TEntity:Entity     
     {
         private RelayCommand<Type> _closeCommand;
         private RelayCommand<Type> _openWindowCommand;
         private RelayCommand<Type> _openArgWindowCommand;
 
+        protected static Repository<TEntity> _repo = new Repository<TEntity>();
 
         public RelayCommand<Type> CloseCommand =>
             _closeCommand ?? (_closeCommand = new RelayCommand<Type>(CloseWindow));
@@ -25,30 +28,30 @@ namespace GaiApp.ViewModels.Abstracts
             _openWindowCommand ?? (_openWindowCommand = new RelayCommand<Type>(OpenWindow));
 
         public RelayCommand<Type> OpenArgWindowCommand =>
-           _openArgWindowCommand ?? (_openArgWindowCommand = new RelayCommand<Type>(CloseWindow));
+           _openArgWindowCommand ?? (_openArgWindowCommand = new RelayCommand<Type>(OpenArgWindow));
 
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void CloseWindow(Type windowType)
+        protected virtual void CloseWindow(Type windowType)
         {
             WindowManager.Instance
                 .CloseWindow(windowType);
         }
 
-        protected void OpenWindow(Type windowType)
+        protected virtual void OpenWindow(Type windowType)
         {
             WindowManager.Instance
                 .CreateEntityWindow(windowType);
         }
 
-        protected void OpenArgWindow(Type windowType, Entity entity)
+        protected virtual void OpenArgWindow(Type windowType)
         {
             WindowManager.Instance
-                .CreateEntityWindow(windowType, entity);
+                 .CreateEntityWindow(windowType);
         }
 
-        protected void OnPropertyChanged([CallerMemberName] string callerName = "")
+        protected virtual void OnPropertyChanged([CallerMemberName] string callerName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(callerName));
         }

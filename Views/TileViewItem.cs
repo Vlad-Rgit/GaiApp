@@ -20,6 +20,9 @@ namespace GaiApp.Views
         public ObservableCollection<TileViewData> TileViewDataCollection { get; set; }
             = new ObservableCollection<TileViewData>();
 
+        public static readonly DependencyProperty CommandParametrProperty =
+            DependencyProperty.Register("CommandParametr", typeof(object), typeof(TileViewItem));
+
 
         public object ItemHeader
         {
@@ -33,8 +36,11 @@ namespace GaiApp.Views
             set { SetValue(ItemImageSourceProperty, value); }
         }
 
-
-
+        public object CommandParametr
+        {
+            get { return (object)GetValue(CommandParametrProperty); }
+            set { SetValue(CommandParametrProperty, value); }
+        }  
     }
 
 

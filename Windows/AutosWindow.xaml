@@ -1,27 +1,22 @@
 ﻿<abstracts:EntityWindow x:Class="GaiApp.Windows.AutosWindow"
-        x:TypeArguments="viewmodels:AutosViewModel, m:Auto"
-        xmlns:m="clr-namespace:GaiApp.Models"       
+        x:TypeArguments="viewmodels:AutosViewModel, m:Auto"       
         xmlns:abstracts="clr-namespace:GaiApp.Windows.Abstracts"
         xmlns:viewmodels="clr-namespace:GaiApp.ViewModels"
+        xmlns:m="clr-namespace:GaiApp.Models"           
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:GaiApp.Windows"
         WindowStyle="None"
         ResizeMode="NoResize"
-        FontSize="20"
+        FontSize="18"
         xmlns:views="clr-namespace:GaiApp.Views"           
         mc:Ignorable="d" Background="{StaticResource BackgoundBrush}"
         Title="AutosWindow" Height="800" Width="1200">
 
-
-
-    
     <Grid>
-
-      
-        
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="50*"/>
@@ -60,18 +55,24 @@
         </DockPanel>
 
         <WrapPanel Grid.Row="1" VerticalAlignment="Center" Margin="10,0,0,0">
-            
+
+            <TextBlock Text="Поиск:" Foreground="White" Margin="0,0,10,0"
+                       VerticalAlignment="Center"/>
             <ComboBox ItemsSource="{Binding SearchProperties}" SelectedItem="{Binding SelectedProperty}"
                       DisplayMemberPath="PropertyInfo.Name" Margin="0,0,10,0" 
                       />
 
+            
             <ContentControl MinWidth="100" Content="{Binding SelectedProperty.Control}"/>
 
-            <ComboBox Margin="100,0,10,0" ItemsSource="{Binding RangeProperties}" 
+            <TextBlock Text="Диапазон:" Foreground="White"
+                         Margin="100,0,10,0"    VerticalAlignment="Center"/>
+            <ComboBox ItemsSource="{Binding RangeProperties}" 
                       SelectedItem="{Binding SelectedRangeProperty}"
-                      DisplayMemberPath="PropertyInfo.Name"/>
+                      DisplayMemberPath="PropertyInfo.Name" />
+   
 
-            <ContentControl Margin="0,0,10,0" MinWidth="100" 
+            <ContentControl Margin="10,0,10,0" MinWidth="100" 
                             Content="{Binding SelectedRangeProperty.BeginControl}"/>
 
             <Label Content="{Binding SelectedRangeProperty.PropertyInfo.Name}"/>
@@ -83,26 +84,39 @@
 
         <ListView Grid.Row="2" Background="Transparent" ItemsSource="{Binding Entities}"
                   Foreground="White" BorderBrush="Transparent"
-                  FontSize="20" SelectedItem="{Binding SelectedEntity}"
+                  FontSize="17" SelectedItem="{Binding SelectedEntity}"
                   x:Name="ls">
             <ListView.View>
-                <views:TileView ItemHeaderPath="Driver.LicenseNumber">
- 
-                        <views:TileViewRow Title="Марка: "
+                <views:TileView x:Name="tileView"
+                                ItemHeaderPath="VIN"
+                                >
+                    <views:TileViewRow Title="Номер водителя:" DisplayMemberPath="Driver.LicenseNumber"/>
+                    <views:TileViewRow Title="Марка:"
                                        DisplayMemberPath="AutoType.Make.MakeName"/>
-       
+                    <views:TileViewRow Title="Модель:" DisplayMemberPath="AutoType.Model.ModelName"/>
+                    <views:TileViewRow Title="Цвет:" DisplayMemberPath="Color.ColorName"/>
+                    <views:TileViewRow Title="Дата регистрации:" DisplayMemberPath="RegistrationDate"/>
+                    <views:TileViewRow Title="Дата изготовления:" DisplayMemberPath="MadeDate"/>
+
                 </views:TileView>
             </ListView.View>
-            <!--<ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Водительское удостоверение" DisplayMemberBinding="{Binding DriverLicense}"/>
-                    <GridViewColumn Header="Водитель" DisplayMemberBinding="{Binding Driver.LastName}"/>
-                    <GridViewColumn Header="Марка" DisplayMemberBinding="{Binding AutoType.Make.MakeName}"/>
-                    <GridViewColumn Header="Модель" DisplayMemberBinding="{Binding AutoType.Model.ModelName}"/>
-                </GridView>
-            </ListView.View>-->
-            
         </ListView>
-        
+
+
+        <Popup IsOpen="{Binding ElementName=tileView, Path=IsPoppedUp}"
+               AllowsTransparency="False"
+               Placement="Mouse" StaysOpen="False" PopupAnimation="Slide"
+               >
+            <Menu Background="White" FontSize="15">
+
+                <MenuItem Header="Редактировать"
+                              Command="{Binding OpenArgWindowCommand}"
+                              CommandParameter="{x:Type local:AutoDetailsWindow}">
+
+                </MenuItem>
+                <MenuItem Header="Удалить"/>
+
+            </Menu>
+        </Popup>
     </Grid>
 </abstracts:EntityWindow>

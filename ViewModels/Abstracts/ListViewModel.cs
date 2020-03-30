@@ -16,9 +16,7 @@ namespace GaiApp.ViewModels.Abstracts
 {
     public class ListViewModel<TEntity> : BaseViewModel<TEntity>
         where TEntity: Entity
-    {
-        protected readonly Repository<TEntity> _repo;
-      
+    {    
         public ObservableCollection<TEntity> Entities { get; set; }
         public TEntity SelectedEntity { get; set; }
 
@@ -26,6 +24,12 @@ namespace GaiApp.ViewModels.Abstracts
         {
             _repo = new Repository<TEntity>();
             Entities = new ObservableCollection<TEntity>(_repo.GetAll());
-        }      
+        }
+
+        protected override void OpenArgWindow(Type windowType)
+        {
+            WindowManager.Instance
+                 .CreateEntityWindow(windowType, SelectedEntity);
+        }
     }
 }

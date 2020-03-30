@@ -18,7 +18,10 @@ namespace GaiApp.Models
 
         public int DesicionId { get; set; }
 
-        public int AutoId { get; set; }
+        [Required]
+        [ForeignKey("Auto")]
+        [StringLength(17)]
+        public string VIN { get; set; }
 
         [Required]
         [StringLength(50)]

@@ -40,10 +40,8 @@
 
 
 
-    <ControlTemplate x:Key="CustomButton" TargetType="Button">
+    <ControlTemplate x:Key="CustomButton" TargetType="{x:Type ButtonBase}">
         <Grid Cursor="Hand">
-
-
             <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
                        RenderTransformOrigin="0.5,0.5" BorderThickness="{TemplateBinding BorderThickness}"
                        x:Name="back">

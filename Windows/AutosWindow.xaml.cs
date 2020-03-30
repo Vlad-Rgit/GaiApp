@@ -36,5 +36,10 @@ namespace GaiApp.Windows
             this.DragMove();
             TileView tileView = ls.View as TileView;
         }
+
+        private void ls_Selected(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine();
+        }
     }
 }

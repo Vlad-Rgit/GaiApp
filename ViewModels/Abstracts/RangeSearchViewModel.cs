@@ -65,6 +65,9 @@ namespace GaiApp.ViewModels.Abstracts
                     RangeProperties.Add(searchProperty);
                 }
             }
+
+            SelectedRangeProperty =
+                RangeProperties[0];
         }
 
         public override void Search()

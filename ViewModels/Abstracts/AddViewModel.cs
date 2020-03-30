@@ -4,19 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GaiApp.Models;
+using GaiApp.Commands;
 
 namespace GaiApp.ViewModels.Abstracts
 {
-    public abstract class AddViewModel<TEntity> : SingleViewModel<TEntity>
+    public class AddViewModel<TEntity> : SingleViewModel<TEntity>
         where TEntity: Entity
     {
-        private bool _isToUpdate;
+        private RelayCommand _saveCommand;
+
+        public RelayCommand SaveCommand => _saveCommand ??
+            (_saveCommand = new RelayCommand(Save));
+
+        protected bool _isToUpdate;
 
         protected AddViewModel(Entity entity) : base(entity)
         {
-            _isToUpdate = entity == null ? true : false;  
+            _isToUpdate = entity == null ? false : true;  
         }
 
-        public abstract void Save();
+        public virtual void Save()
+        {
+            if (_isToUpdate == true)
+            {
+                _repo.Update(Entity);
+            }
+            else
+            {
+                _repo.Add(Entity);
+            }
+
+            _repo.SaveChanges();
+        }
     }
 }

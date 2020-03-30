@@ -54,6 +54,11 @@ namespace GaiApp.EF.Repositories
             return _set.ToList();
         }
 
+        public IList<TEntity> GetAllOfType<TEntity>() where TEntity : Entity
+        {
+            return _context.Set<TEntity>().ToList();
+        }
+
         public void Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;

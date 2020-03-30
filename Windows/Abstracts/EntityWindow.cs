@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using GaiApp.Models;
 using GaiApp.ViewModels.Abstracts;
 
@@ -35,6 +36,12 @@ namespace GaiApp.Windows.Abstracts
         protected EntityWindow()
         {
             ViewModelType = typeof(TViewModel);
+        }
+
+
+        protected void DragMoveEvent(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

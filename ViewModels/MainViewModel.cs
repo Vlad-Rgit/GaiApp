@@ -24,8 +24,7 @@ namespace GaiApp.ViewModels
 
         public MainViewModel(Entity entity) : base(entity)
         {
-            using (Repository<News> repo = new Repository<News>())
-                News = new ObservableCollection<News>(repo.GetAll());
+            News = new ObservableCollection<News>(_repo.GetAllOfType<News>());
         }
 
         public void OpenBrowser(News news)

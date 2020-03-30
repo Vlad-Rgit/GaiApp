@@ -59,11 +59,16 @@ namespace GaiApp.ViewModels.Abstracts
                     SearchProperties.Add(searchProperty);
                 }
             }
+
+            SelectedProperty = SearchProperties[0];
         }
 
 
         public virtual void Search()
         {
+            if (SearchString == null || SearchString == String.Empty)
+                return;
+
             Entities.Clear();
 
             foreach (var a in _repo.GetAll())
@@ -75,6 +80,8 @@ namespace GaiApp.ViewModels.Abstracts
                     Entities.Add(a);
                 }
             }
+
         }
+
     }
 }

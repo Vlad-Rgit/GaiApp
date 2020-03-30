@@ -16,7 +16,9 @@ namespace GaiApp.Models
             Desicions = new HashSet<Desicion>();
         }
 
-        public int AutoId { get; set; }
+        [Key]
+        [StringLength(17)]
+        public string VIN { get; set; }
 
         [SearchProperty(nameof(DriverLicense))]
         [Required]
@@ -28,6 +30,7 @@ namespace GaiApp.Models
         public int ModelId { get; set; }
 
         public int ColorId { get; set; }
+
 
         [RangeProperty(nameof(RegistrationDate))]
         [SearchProperty(nameof(RegistrationDate))]
