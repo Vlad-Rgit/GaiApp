@@ -20,9 +20,10 @@ namespace GaiApp.Models
         [StringLength(17)]
         public string VIN { get; set; }
 
-        [SearchProperty(nameof(DriverLicense))]
+      
         [Required]
         [StringLength(50)]
+        [SearchProperty]
         public string DriverLicense { get; set; }
 
         public int MakeId { get; set; }
@@ -33,20 +34,22 @@ namespace GaiApp.Models
 
 
         [RangeProperty(nameof(RegistrationDate))]
-        [SearchProperty(nameof(RegistrationDate))]
+        [SearchProperty]
         [Column(TypeName = "date")]
-        public DateTime RegistrationDate { get; set; }
+        public DateTime RegistrationDate { get; set; } = DateTime.Now;
 
         [RangeProperty(nameof(MadeDate))]
-        [SearchProperty(nameof(MadeDate))]
+        [SearchProperty]
         [Column(TypeName = "date")]
-        public DateTime MadeDate { get; set; }
+        public DateTime MadeDate { get; set; } = DateTime.Now;
 
-        public virtual AutoType AutoType { get; set; }
+        [SearchObject]
+        public virtual AutoType AutoType { get; set; } 
 
-        public virtual Color Color { get; set; }
+        [SearchObject]
+        public virtual Color Color { get; set; } 
 
-        public virtual Driver Driver { get; set; }
+        public virtual Driver Driver { get; set; } 
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Desicion> Desicions { get; set; }

@@ -4,84 +4,91 @@ using GaiApp.SearchProperties;
 using GaiApp.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using GaiApp.Commands;
 
 namespace GaiApp.ViewModels.Abstracts
 {
     public class SearchViewModel<TEntity> : ListViewModel<TEntity>
         where TEntity : Entity
     {
-        private string _searchString;   
-        private SearchProperty _selectedProperty;
+        private RelayCommand _addFilterCommand;
+
 
         protected ContainerManager _containerManager;
         
-        public List<SearchProperty> SearchProperties { get; set; }
-            = new List<SearchProperty>();
+        public List<SingleProperty> SearchProperties { get; set; }
+            = new List<SingleProperty>();
 
-        public SearchProperty SelectedProperty
-        {
-            get => _selectedProperty;
-            set
-            {
-                _selectedProperty = value;
-                OnPropertyChanged();
-            }
-        }
+        public ObservableCollection<Filter> Filters { get; set; }
+        = new ObservableCollection<Filter>();
 
-        public string SearchString
-        {
-            get => _searchString;
-            set
-            {
-                _searchString = value;
-                Search();
-            }
-        }
+
+        public RelayCommand AddFilterCommand =>
+            _addFilterCommand ?? (_addFilterCommand = new RelayCommand(AddFilter));
+
+    
+
 
         public SearchViewModel()
         {
             _containerManager = new ContainerManager();
 
-        
-            foreach (var p in typeof(TEntity).GetProperties())
+            foreach(var p in
+                PropertySearcher.GetSearchProperties(typeof(TEntity)))
             {
-                var attribute = p.GetCustomAttribute(typeof(SearchPropertyAttribute));
-
-                if (attribute != null)
-                {
-                    SearchProperty searchProperty =
-                         _containerManager.RegisterProperty(p);
-
-                    SearchProperties.Add(searchProperty);
-                }
+                SingleProperty property = _containerManager.RegisterProperty(p);
+                SearchProperties.Add(property);
             }
-
-            SelectedProperty = SearchProperties[0];
         }
 
-
-        public virtual void Search()
+        public virtual void AddFilter()
         {
-            if (SearchString == null || SearchString == String.Empty)
-                return;
+            Filter filter = new Filter();
+            filter.SearchStringUpdated += Search;
+            filter.SearchProperty = SearchProperties[0];
+            Filters.Add(filter);
+        }
+
+        public virtual void Search(object sender, EventArgs args)
+        {
+            LinkedList<TEntity> temp =
+                new LinkedList<TEntity>(_repo.GetAll());
 
             Entities.Clear();
 
-            foreach (var a in _repo.GetAll())
+            foreach (var f in Filters)
             {
-                if (SelectedProperty
-                    .PropertyInfo.GetValue(a)
-                    .ToString().Contains(SearchString))
+                bool isNested = true;
+
+                object owner;
+                Type ownerType = f.SearchProperty.PropertyInfo.DeclaringType;
+
+                if (typeof(TEntity) == ownerType)
+                    isNested = false;
+
+                foreach (var a in _repo.GetAll())
                 {
-                    Entities.Add(a);
+                    if (isNested)
+                        owner =
+                            PropertySearcher.GetNestedEntity(a, ownerType);
+                    else
+                        owner = a;
+
+                    if (!f.SearchProperty.GetStringValue(owner)
+                        .Contains(f.SearchString))
+                    {
+                        temp.Remove(a);
+                    }
                 }
             }
 
+            foreach (var e in temp)
+                Entities.Add(e);
         }
-
     }
 }

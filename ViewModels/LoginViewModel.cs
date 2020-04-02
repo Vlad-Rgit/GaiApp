@@ -17,20 +17,17 @@ using GaiApp.ViewModels.Abstracts;
 namespace GaiApp.ViewModels
 {
  
-    public class LoginViewModel : SingleViewModel<Policeman>
+    public sealed class LoginViewModel : SingleViewModel<Policeman>
     {
         private RelayCommand<PasswordBox> _loginCommand;
 
         public RelayCommand<PasswordBox> LoginCommand => 
             _loginCommand ?? (_loginCommand = new RelayCommand<PasswordBox>(Login));
 
-
-
         public LoginViewModel(Entity entity) : base(entity)
         {
          
         }
-
 
         public void Login(PasswordBox box) 
         {         

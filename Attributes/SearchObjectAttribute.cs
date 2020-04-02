@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 namespace GaiApp.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class SearchPropertyAttribute : Attribute
+    public sealed class SearchObjectAttribute : Attribute
     {
-        public SearchPropertyAttribute()
-        { }
-           
+
     }
 }

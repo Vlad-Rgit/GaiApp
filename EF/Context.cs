@@ -11,6 +11,7 @@
         public Context()
             : base("name=Context4")
         {
+
         }
 
         public virtual DbSet<Address> Addresses { get; set; }
@@ -72,12 +73,6 @@
 
             modelBuilder.Entity<Desicion>()
                 .HasMany(e => e.InfrigmentInDecisions)
-                .WithRequired(e => e.Desicion)
-                .HasForeignKey(e => e.DecisionId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Desicion>()
-                .HasMany(e => e.Punishments)
                 .WithRequired(e => e.Desicion)
                 .HasForeignKey(e => e.DecisionId)
                 .WillCascadeOnDelete(false);

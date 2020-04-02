@@ -16,6 +16,7 @@ namespace GaiApp.ViewModels.Abstracts
         where TEntity:Entity     
     {
         private RelayCommand<Type> _closeCommand;
+        private RelayCommand _closeCurrentCommand;
         private RelayCommand<Type> _openWindowCommand;
         private RelayCommand<Type> _openArgWindowCommand;
 
@@ -23,6 +24,9 @@ namespace GaiApp.ViewModels.Abstracts
 
         public RelayCommand<Type> CloseCommand =>
             _closeCommand ?? (_closeCommand = new RelayCommand<Type>(CloseWindow));
+
+        public RelayCommand CloseCurrentCommand =>
+           _closeCurrentCommand ?? (_closeCurrentCommand = new RelayCommand(CloseCurrentWindow));
 
         public RelayCommand<Type> OpenWindowCommand =>
             _openWindowCommand ?? (_openWindowCommand = new RelayCommand<Type>(OpenWindow));
@@ -39,6 +43,12 @@ namespace GaiApp.ViewModels.Abstracts
                 .CloseWindow(windowType);
         }
 
+        protected virtual void CloseCurrentWindow()
+        {
+            WindowManager.Instance
+                .CloseLastWindow();
+        }
+
         protected virtual void OpenWindow(Type windowType)
         {
             WindowManager.Instance
@@ -48,7 +58,7 @@ namespace GaiApp.ViewModels.Abstracts
         protected virtual void OpenArgWindow(Type windowType)
         {
             WindowManager.Instance
-                 .CreateEntityWindow(windowType);
+                 .CreateArgEntityWindow(windowType, null);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string callerName = "")

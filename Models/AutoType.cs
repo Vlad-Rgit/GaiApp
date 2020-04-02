@@ -5,6 +5,7 @@ namespace GaiApp.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using GaiApp.Attributes;
 
     [Table("AutoType")]
     public partial class AutoType : Entity
@@ -28,8 +29,10 @@ namespace GaiApp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Auto> Autoes { get; set; }
 
+        [SearchObject]
         public virtual Make Make { get; set; }
 
-        public virtual Model Model { get; set; }
+        [SearchObject]
+        public virtual Model Model { get; set; } 
     }
 }

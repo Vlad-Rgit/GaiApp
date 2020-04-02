@@ -5,6 +5,7 @@ namespace GaiApp.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using GaiApp.Attributes;
 
     [Table("Driver")]
     public partial class Driver : Entity
@@ -18,22 +19,27 @@ namespace GaiApp.Models
 
         [Key]
         [StringLength(50)]
+        [SearchProperty]
         public string LicenseNumber { get; set; }
 
         [Required]
         [StringLength(255)]
+        [SearchProperty]
         public string Name { get; set; }
 
         [Required]
         [StringLength(255)]
+        [SearchProperty]
         public string LastName { get; set; }
 
         [Required]
         [StringLength(255)]
+        [SearchProperty]
         public string Patronymic { get; set; }
 
         [Required]
         [StringLength(20)]
+        [SearchProperty]
         public string PhoneNumber { get; set; }
 
         [NotMapped]
@@ -47,5 +53,11 @@ namespace GaiApp.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Desicion> Desicions { get; set; }
+
+
+        public override string ToString()
+        {
+            return LicenseNumber;
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace GaiApp.Attributes
         public RangePropertyAttribute(string propertyName)
             => PropertyName = propertyName;
 
-
+        public RangePropertyAttribute() { }
      
     }
 }

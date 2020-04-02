@@ -5,6 +5,7 @@ namespace GaiApp.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using GaiApp.Attributes;
 
     [Table("Desicion")]
     public partial class Desicion : Entity
@@ -13,7 +14,6 @@ namespace GaiApp.Models
         public Desicion()
         {
             InfrigmentInDecisions = new HashSet<InfrigmentInDecision>();
-            Punishments = new HashSet<Punishment>();
         }
 
         public int DesicionId { get; set; }
@@ -21,31 +21,38 @@ namespace GaiApp.Models
         [Required]
         [ForeignKey("Auto")]
         [StringLength(17)]
+        [SearchProperty]
         public string VIN { get; set; }
 
         [Required]
         [StringLength(50)]
+        [SearchProperty]
         public string DriverLicense { get; set; }
 
         [Required]
         [StringLength(10)]
+        [SearchProperty]
         public string ArticleCode { get; set; }
 
         [Required]
         [StringLength(50)]
+        [SearchProperty]
         public string PolicemanNumber { get; set; }
 
+        [SearchProperty]
+        [RangeProperty]
         public DateTime PunishmentDateTime { get; set; }
+
+        public int AddressId { get; set; }
 
         public virtual Article Article { get; set; }
 
         public virtual Auto Auto { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<InfrigmentInDecision> InfrigmentInDecisions { get; set; }
+        public virtual Address InfrigmentAddress { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Punishment> Punishments { get; set; }
+        public virtual ICollection<InfrigmentInDecision> InfrigmentInDecisions { get; set; }
 
         public virtual Driver Driver { get; set; }
 

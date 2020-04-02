@@ -14,18 +14,14 @@ using GaiApp.SearchProperties;
 namespace GaiApp.Services
 {
     public class ContainerManager
-    {
-        private PropertyInfo _searchString;
-        private object _viewModel;
-
+    { 
         private ToStringConverter _converter
             = new ToStringConverter();
 
-        public SearchProperty RegisterProperty(PropertyInfo propertyInfo)
+        public SingleProperty RegisterProperty(PropertyInfo propertyInfo)
         {
-            SearchProperty searchProperty =
-                new SearchProperty() { PropertyInfo = propertyInfo };
-
+            SingleProperty searchProperty =
+                new SingleProperty() { PropertyInfo = propertyInfo };
 
             Binding binding = new Binding();
             binding.Path = new PropertyPath("SearchString");
@@ -44,7 +40,6 @@ namespace GaiApp.Services
                     searchProperty.Control = new TextBox();                   
                     searchProperty.Control
                         .SetBinding(TextBox.TextProperty, binding);
-
                     break;
             }
 

@@ -27,8 +27,7 @@ namespace GaiApp.Services
             LoginWindow loginWindow = new LoginWindow();
 
             loginWindow.SetViewModel
-                (Activator.CreateInstance(loginWindow.ViewModelType, new Policeman()));
-            
+                (Activator.CreateInstance(loginWindow.ViewModelType, new Policeman()));           
 
             _entityWindows[typeof(LoginWindow).FullName] = loginWindow;
 
@@ -81,9 +80,9 @@ namespace GaiApp.Services
                 win.Show();
         }
 
-        public void CreateEntityWindow(Type winType, Entity entity = null, bool isDialog = true)
+        public void CreateEntityWindow(Type winType, bool isDialog = true)
         {
-            Window win;  
+            Window win;
 
             if (_entityWindows.ContainsKey(winType.FullName))
             {
@@ -95,24 +94,12 @@ namespace GaiApp.Services
 
                 MethodInfo setViewModel = winType.GetMethod("SetViewModel");
 
-                if (entity == null)
-                {
-                    Type viewModelType = (Type)winType
-                           .GetProperty("ViewModelType").GetValue(win);
+                Type viewModelType = (Type)winType
+                       .GetProperty("ViewModelType").GetValue(win);
 
-                    setViewModel.Invoke(win,
-                        new object[] {
+                setViewModel.Invoke(win,
+                    new object[] {
                     Activator.CreateInstance(viewModelType)});
-                }
-                else
-                {
-                    Type viewModelType = (Type)winType
-                         .GetProperty("ViewModelType").GetValue(win);
-
-                    setViewModel.Invoke(win,
-                        new object[] {
-                    Activator.CreateInstance(viewModelType, entity)});
-                }
 
                 _entityWindows[winType.FullName] = win;
             }
@@ -129,6 +116,44 @@ namespace GaiApp.Services
                 Console.WriteLine(e.Message);
             }
         }
+
+        public void CreateArgEntityWindow(Type winType, Entity entity, bool isDialog = true)
+        {
+            Window win;
+
+            if (_entityWindows.ContainsKey(winType.FullName))
+            {
+                win = _entityWindows[winType.FullName];
+            }
+            else
+            {
+                win = (Window)Activator.CreateInstance(winType);
+
+                MethodInfo setViewModel = winType.GetMethod("SetViewModel");
+
+                Type viewModelType = (Type)winType
+                     .GetProperty("ViewModelType").GetValue(win);
+
+                setViewModel.Invoke(win,
+                    new object[] {
+                    Activator.CreateInstance(viewModelType, entity)});
+
+                _entityWindows[winType.FullName] = win;
+            }
+
+            try
+            {
+                if (isDialog)
+                    win.ShowDialog();
+                else
+                    win.Show();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
 
         public void ShowWindow<TWindow>()
         {
@@ -149,6 +174,13 @@ namespace GaiApp.Services
         {
             _entityWindows[typeof(TWindow).FullName].Close();
             _entityWindows.Remove(typeof(TWindow).FullName);
+        }
+
+        public void CloseLastWindow()
+        {
+            Window win = _entityWindows.Values.Last();
+            win.Close();
+            _entityWindows.Remove(win.GetType().FullName);
         }
 
         public void CloseWindow(Type windowType)

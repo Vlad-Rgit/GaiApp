@@ -31,7 +31,8 @@ namespace GaiApp.EF.Repositories
 
         public void Delete(T entity)
         {
-            _context.Entry(entity).State = EntityState.Deleted;
+            entity.IsDeleted = true;
+            Update(entity);
         }
 
         public void Delete(object key)
@@ -41,7 +42,8 @@ namespace GaiApp.EF.Repositories
             if (entity == null)
                 throw new ApplicationException("The entity does not exist");
 
-            _context.Entry(entity).State = EntityState.Deleted;
+            entity.IsDeleted = true;
+            Update(entity);
         } 
 
         public T Get(object key)
@@ -49,19 +51,35 @@ namespace GaiApp.EF.Repositories
             return _set.Find(key);
         }
 
+        public TEntity GetOfType<TEntity>(params object[] keys)
+            where TEntity: Entity
+        {
+            return _context.Set<TEntity>().Find(keys);
+        }
+
         public IList<T> GetAll()
         {
-            return _set.ToList();
+            return _set.Where(e=>e.IsDeleted==false).ToList();
         }
 
         public IList<TEntity> GetAllOfType<TEntity>() where TEntity : Entity
         {
-            return _context.Set<TEntity>().ToList();
+            return _context.Set<TEntity>().Where(e => e.IsDeleted == false).ToList();
+        }
+
+        public IList<Entity> GetAllOfType(Type entityType)
+        {
+            return _context.Set(entityType).Cast<Entity>().Where(e => e.IsDeleted == false).ToList();
         }
 
         public void Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
+        }
+
+        public void Reload(T entity)
+        {
+            _context.Entry(entity).Reload();
         }
 
         public int SaveChanges()

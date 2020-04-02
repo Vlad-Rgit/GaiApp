@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="GaiApp.UserControls.TextboxWithList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GaiApp.UserControls"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <TextBox DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                 x:Name="txt" Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 TextChanged="txt_TextChanged" Padding="5,0" 
+                 VerticalContentAlignment="Center">
+          
+        </TextBox>
+        
+        <Popup AllowsTransparency="True" PopupAnimation="Slide"
+               PlacementTarget="{Binding ElementName=txt}"
+               Placement="Bottom" Width="100" Height="100"
+               IsOpen="{Binding ElementName=txt, Path=IsFocused, Mode=OneWay}">
+
+            <ListBox x:Name="list" DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                          SelectionChanged="list_SelectionChanged" 
+                          DisplayMemberPath="{Binding DisplayMemberPath}">
+                
+            </ListBox>
+        </Popup>
+    </Grid>
+</UserControl>

@@ -5,6 +5,7 @@ namespace GaiApp.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using GaiApp.Attributes;
 
     [Table("Article")]
     public partial class Article : Entity
@@ -18,6 +19,7 @@ namespace GaiApp.Models
 
         [Key]
         [StringLength(10)]
+        [SearchProperty]
         public string ArticleCode { get; set; }
 
         [Required]

@@ -11,7 +11,7 @@
         xmlns:local="clr-namespace:GaiApp.Windows"
         WindowStyle="None"
         ResizeMode="NoResize"
-        FontSize="18"
+        FontSize="14"
         xmlns:views="clr-namespace:GaiApp.Views"           
         mc:Ignorable="d" Background="{StaticResource BackgoundBrush}"
         Title="AutosWindow" Height="800" Width="1200">
@@ -56,14 +56,35 @@
 
         <WrapPanel Grid.Row="1" VerticalAlignment="Center" Margin="10,0,0,0">
 
-            <TextBlock Text="Поиск:" Foreground="White" Margin="0,0,10,0"
-                       VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding SearchProperties}" SelectedItem="{Binding SelectedProperty}"
-                      DisplayMemberPath="PropertyInfo.Name" Margin="0,0,10,0" 
-                      />
+            <ToggleButton x:Name="filters" Content="Фильтры" Padding="5,0"/>
 
-            
-            <ContentControl MinWidth="100" Content="{Binding SelectedProperty.Control}"/>
+            <Popup IsOpen="{Binding ElementName=filters, Path=IsChecked, Mode=OneWay}" Placement="Bottom"
+                       PlacementTarget="{Binding ElementName=filters}"
+                       AllowsTransparency="True" PopupAnimation="Slide">
+                <Border Background="White" Padding="5">
+                    <Border.Effect>
+                        <DropShadowEffect/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding Filters}"
+                                      Margin="0,5">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <WrapPanel>
+                                        <ComboBox x:Name="cmb" ItemsSource="{Binding ViewModel.SearchProperties, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                  SelectedItem="{Binding SearchProperty}" DisplayMemberPath="PropertyInfo.Name"
+                                                  Margin="0,0,5,0"/>
+                                        <ContentControl Content="{Binding ElementName=cmb, Path=SelectedItem.Control}" MinWidth="150"/>
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button Style="{StaticResource MainButton}" Content="Добавить фильтр"
+                            Padding="5" Command="{Binding AddFilterCommand}"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+
 
             <TextBlock Text="Диапазон:" Foreground="White"
                          Margin="100,0,10,0"    VerticalAlignment="Center"/>
@@ -84,7 +105,7 @@
 
         <ListView Grid.Row="2" Background="Transparent" ItemsSource="{Binding Entities}"
                   Foreground="White" BorderBrush="Transparent"
-                  FontSize="17" SelectedItem="{Binding SelectedEntity}"
+                  SelectedItem="{Binding SelectedEntity}"
                   x:Name="ls">
             <ListView.View>
                 <views:TileView x:Name="tileView"
@@ -112,9 +133,9 @@
                 <MenuItem Header="Редактировать"
                               Command="{Binding OpenArgWindowCommand}"
                               CommandParameter="{x:Type local:AutoDetailsWindow}">
-
                 </MenuItem>
-                <MenuItem Header="Удалить"/>
+                <MenuItem Header="Удалить"
+                          Command="{Binding DeleteCommand}"/>
 
             </Menu>
         </Popup>

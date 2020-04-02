@@ -4,6 +4,8 @@
         xmlns:viewmodels="clr-namespace:GaiApp.ViewModels"
         xmlns:m="clr-namespace:GaiApp.Models" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:uc="clr-namespace:GaiApp.UserControls"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -97,24 +99,36 @@
 
 
 
-        <TextBlock Grid.Column="1" Foreground="White"
+        <TextBox Grid.Column="1" Foreground="Black"
                  Grid.Row="2" Margin="20"
-                 VerticalAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 IsReadOnly="{Binding IsToUpdate}"
                  Padding="5,0" Text="{Binding Entity.VIN}"/>
 
-        <TextBox Grid.Column="1"
-                 Grid.Row="3" Margin="20"
-                   VerticalContentAlignment="Center"
-                 Padding="5,0" Text="{Binding Entity.DriverLicense, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <uc:TextboxWithList Grid.Column="1"
+                 Grid.Row="3" Margin="20"                
+                 ItemsSource="{Binding Drivers}"
+               >
+            <uc:TextboxWithList.Text>
+                <Binding  Path="DriverLicense" UpdateSourceTrigger="PropertyChanged"
+                          Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <ExceptionValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </uc:TextboxWithList.Text>
+        </uc:TextboxWithList>
 
         <ComboBox Grid.Column="1" ItemsSource="{Binding Makes}"
                   DisplayMemberPath="MakeName"
             Grid.Row="4" Margin="20" SelectedIndex="0"
                     VerticalContentAlignment="Center"
+                  SelectedItem="{Binding SelectedMake}"
                  Padding="5,0" />
 
         <ComboBox Grid.Column="1" ItemsSource="{Binding Models}"
                           DisplayMemberPath="ModelName"
+                  SelectedItem="{Binding SelectedModel}"
             Grid.Row="5" Margin="20" SelectedIndex="0"
                     VerticalContentAlignment="Center"
                  Padding="5,0"/>
@@ -122,17 +136,19 @@
 
         <ComboBox Grid.Column="1" ItemsSource="{Binding Colors}"
                   DisplayMemberPath="ColorName"
+                  SelectedItem="{Binding Entity.Color}"
             Grid.Row="6" Margin="20" SelectedIndex="0"
                     VerticalContentAlignment="Center"
                  Padding="5,0"/>
 
         <DatePicker Grid.Column="1" SelectedDate="{Binding Entity.RegistrationDate}"
+                    DisplayDate="{x:Static sys:DateTime.Today}"
             Grid.Row="7" Margin="20"
                       VerticalContentAlignment="Center"
                  Padding="5,0"/>
 
         <DatePicker Grid.Column="1" SelectedDate="{Binding Entity.MadeDate}"
-            Grid.Row="8" Margin="20"
+            Grid.Row="8" Margin="20" DisplayDate="{x:Static sys:DateTime.Today}"
                       VerticalContentAlignment="Center"
                  Padding="5,0"/>
 

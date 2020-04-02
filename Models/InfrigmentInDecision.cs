@@ -5,6 +5,7 @@ namespace GaiApp.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using GaiApp.Attributes;
 
     [Table("InfrigmentInDecision")]
     public partial class InfrigmentInDecision : Entity
@@ -19,10 +20,13 @@ namespace GaiApp.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int DecisionId { get; set; }
 
+        [SearchProperty]
+        [RangeProperty]
         public decimal? Penalty { get; set; }
 
         public virtual Desicion Desicion { get; set; }
 
+        [SearchObject]
         public virtual Infrigment Infrigment { get; set; }
 
         public virtual Punishment Punishment { get; set; }

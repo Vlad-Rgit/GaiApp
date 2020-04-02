@@ -197,7 +197,7 @@ namespace GaiApp.Views
 
         private void Popup(object sender, EventArgs args)
         {
-            IsPoppedUp = true;
+            IsPoppedUp = !IsPoppedUp;
         }
     }
 }

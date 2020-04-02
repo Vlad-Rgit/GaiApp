@@ -13,7 +13,7 @@ using GaiApp.Services;
 using GaiApp.Windows;
 namespace GaiApp.ViewModels
 {
-    public class MainViewModel : SingleViewModel<Policeman>
+    public sealed class MainViewModel : SingleViewModel<Policeman>
     {
         private RelayCommand<News> _openBrowserLinkCommand;
 

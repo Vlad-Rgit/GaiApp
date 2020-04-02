@@ -88,23 +88,27 @@
                     </WrapPanel>
                 </GroupBox.Header>
                 
-                <StackPanel Margin="30">
-                    <Button Content="Машины" FontSize="15" HorizontalAlignment="Left"  ToolTip="Все зарегестрированные машины в ГАИ"
-                     Padding="10"  MinWidth="120" Style="{StaticResource SecondaryButton}"
+                <StackPanel Margin="30" MinWidth="150">
+                    <Button Content="Машины" FontSize="15"   ToolTip="Все зарегестрированные машины в ГАИ"
+                     Padding="10" Style="{StaticResource SecondaryButton}"
                             Command="{Binding OpenWindowCommand}" CommandParameter="{x:Type local:AutosWindow}"/>
-                    <Button Content="Водители" FontSize="15" HorizontalAlignment="Left" Margin="0,10,0,0"
+                    <Button Content="Водители" FontSize="15"  Margin="0,10,0,0"
                              ToolTip="Все зарегестрированные водители в ГАИ"
+                             Command="{Binding OpenWindowCommand}" CommandParameter="{x:Type local:DriversWindow}"
                      Padding="10"  MinWidth="120" Style="{StaticResource SecondaryButton}"/>
-                    <Button Content="Инспекторы" FontSize="15" HorizontalAlignment="Left" Margin="0,10,0,0"
+                    <Button Content="Инспекторы" FontSize="15"  Margin="0,10,0,0"
                                 ToolTip="Все зарегестрированные инпекторы в ГАИ"
+                              Command="{Binding OpenWindowCommand}" CommandParameter="{x:Type local:PolicemanWindow}"
                      Padding="10"  MinWidth="120" Style="{StaticResource SecondaryButton}"/>
-                    <Button Content="Решения" FontSize="15" HorizontalAlignment="Left" Margin="0,10,0,0"
+                    <Button Content="Постановления" FontSize="15" Margin="0,10,0,0"
                               ToolTip="Архив всех решений, когда либо и кем либо вынесенных"
+                             Command="{Binding OpenWindowCommand}" CommandParameter="{x:Type local:DesicionsWindow}"
                      Padding="10"  MinWidth="120" Style="{StaticResource SecondaryButton}"/>
-                    <Button Content="Штрафы" FontSize="15" HorizontalAlignment="Left" Margin="0,10,0,0"
+                    <Button Content="Штрафы" FontSize="15" Margin="0,10,0,0"
                                           ToolTip="Архив всех штрафов, когда либо и кем либо выписанных"
-                     Padding="10"  MinWidth="120" Style="{StaticResource SecondaryButton}"/>
-                    <Button Content="Статьи" FontSize="15" HorizontalAlignment="Left" Margin="0,10,0,0"
+                     Padding="10"  MinWidth="120" Style="{StaticResource SecondaryButton}"
+                             Command="{Binding OpenWindowCommand}" CommandParameter="{x:Type local:PunishmentsWindow}"/>
+                    <Button Content="Статьи" FontSize="15"  Margin="0,10,0,0"
                                 ToolTip="Текущие правила дорожного движения и список наказаний за нарушение"
                      Padding="10"  MinWidth="120" Style="{StaticResource SecondaryButton}"/>
                 </StackPanel>
@@ -121,14 +125,15 @@
 
                 <StackPanel Margin="30">
                     <Button Content="Зарегистрировать автомобиль" FontSize="15" ToolTip="Зарегистрировать новый автомобиль водителя"
-                    Padding="10" Style="{StaticResource SecondaryButton}" MinWidth="260"/>
+                    Padding="10" Style="{StaticResource SecondaryButton}" MinWidth="260"
+                    Command="{Binding OpenArgWindowCommand}" CommandParameter="{x:Type local:AutoDetailsWindow}"/>
                     <Button Content="Зарегистрировать водителя" FontSize="15"  Margin="0,10,0,0" ToolTip="Зарегистрировать нового водителя"
                     Padding="10" Style="{StaticResource SecondaryButton}" MinWidth="235"/>
-                    <Button Content="Вынести решение" FontSize="15" Margin="0,10,0,0" ToolTip="Вынести новое решение, на месте нарушения"
+                    <Button Content="Вынести постановление" FontSize="15" Margin="0,10,0,0" ToolTip="Вынести новое решение, на месте нарушения"
                     Padding="10" Style="{StaticResource SecondaryButton}" MinWidth="260"/>
                     <Button Content="Выписать штраф" FontSize="15" Margin="0,10,0,0" ToolTip="Выписать итоговое наказание к решению"
                     Padding="10" Style="{StaticResource SecondaryButton}" MinWidth="260"/>
-                    <Button Content="Вынесенные решения" FontSize="15"  Margin="0,10,0,0" ToolTip="Вынесенные вами решения"
+                    <Button Content="Вынесенные постановления" FontSize="15"  Margin="0,10,0,0" ToolTip="Вынесенные вами решения"
                     Padding="10" Style="{StaticResource SecondaryButton}" MinWidth="260"/>
                     <Button Content="Выписанные штрафы" FontSize="15" Margin="0,10,0,0" ToolTip="Выписанные вами решения"
                     Padding="10" Style="{StaticResource SecondaryButton}" MinWidth="260"/>

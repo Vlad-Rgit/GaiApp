@@ -63,6 +63,21 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arguments\FilterArgs.cs" />
+    <Compile Include="SearchProperties\Filter.cs" />
+    <Compile Include="SearchProperties\SearchProperty.cs" />
+    <Compile Include="ViewModels\ArticleViewModel.cs" />
+    <Compile Include="ViewModels\DesicionsViewModel.cs" />
+    <Compile Include="ViewModels\PunishmentsViewModel.cs" />
+    <Compile Include="Windows\DesicionsWindow.xaml.cs">
+      <DependentUpon>DesicionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PolicemanWindow.xaml.cs">
+      <DependentUpon>PolicemanWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PunishmentsWindow.xaml.cs">
+      <DependentUpon>PunishmentsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,6 +87,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Attributes\RangePropertyAttribute.cs" />
+    <Compile Include="Attributes\SearchObjectAttribute.cs" />
     <Compile Include="Attributes\SearchPropertyAttribute.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommandT.cs" />
@@ -107,10 +123,14 @@
     <Compile Include="EF\Repositories\IRepository.cs" />
     <Compile Include="Models\Street.cs" />
     <Compile Include="Models\sysdiagram.cs" />
+    <Compile Include="SearchProperties\PropertySearcher.cs" />
     <Compile Include="SearchProperties\RangeProperty.cs" />
-    <Compile Include="SearchProperties\SearchProperty.cs" />
+    <Compile Include="SearchProperties\SingleProperty.cs" />
     <Compile Include="Services\ContainerManager.cs" />
     <Compile Include="Services\WindowManager.cs" />
+    <Compile Include="UserControls\TextboxWithPopup.xaml.cs">
+      <DependentUpon>TextboxWithPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\Abstracts\AddViewModel.cs" />
     <Compile Include="ViewModels\Abstracts\RangeSearchViewModel.cs" />
     <Compile Include="ViewModels\Abstracts\SearchViewModel.cs" />
@@ -118,9 +138,11 @@
     <Compile Include="ViewModels\AutosViewModel.cs" />
     <Compile Include="ViewModels\Abstracts\BaseViewModel.cs" />
     <Compile Include="ViewModels\Abstracts\ListViewModel.cs" />
+    <Compile Include="ViewModels\DriversViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\Abstracts\SingleViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\PolicemenViewModel.cs" />
     <Compile Include="Views\TileView.cs" />
     <Compile Include="Views\TileViewData.cs" />
     <Compile Include="Views\TileViewItem.cs" />
@@ -132,6 +154,9 @@
     <Compile Include="Windows\AutosWindow.xaml.cs">
       <DependentUpon>AutosWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\DriversWindow.xaml.cs">
+      <DependentUpon>DriversWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -139,6 +164,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Abstracts\EntityWindow.cs" />
+    <Page Include="Windows\DesicionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PolicemanWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PunishmentsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -185,11 +222,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\TextboxWithPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AutoDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\AutosWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DriversWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

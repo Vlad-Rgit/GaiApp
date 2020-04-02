@@ -10,13 +10,19 @@ using GaiApp.Services;
 namespace GaiApp.ViewModels.Abstracts
 {
     public abstract class SingleViewModel<TEntity> : BaseViewModel<TEntity>
-        where TEntity: Entity
+        where TEntity: Entity, new()
     {
         public TEntity Entity { get; set; }
 
         protected SingleViewModel(Entity entity)
         {
-            Entity = (TEntity)entity;
+            if (entity == null)
+            {
+                Entity = new TEntity();
+                Entity.InitilizeDefault();
+            }
+            else
+                Entity = (TEntity)entity;
         }     
     }
 }

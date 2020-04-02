@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:GaiApp"
+             xmlns:uc="clr-namespace:GaiApp.UserControls"
              xmlns:converters="clr-namespace:GaiApp.Converters"       
            >
     <Application.Resources>
@@ -19,6 +20,25 @@ xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Inte
             <converters:DescriptionConverter x:Key="descriptionConverter"/>
             <converters:MultiParametrsConverter x:Key="multiParametrsConverter"/>
 
+            <Style TargetType="uc:TextboxWithList">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+
+                        <ControlTemplate>
+                            <Grid>
+                                <Popup AllowsTransparency="True" PlacementTarget="{Binding ElementName=adorned}"
+                                       Placement="Top" IsOpen="True" PopupAnimation="Slide">
+                                    <TextBlock FontSize="14"
+                                  Text="{Binding ElementName=adorned, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                                  Foreground="White" />
+                                </Popup>
+                                <AdornedElementPlaceholder x:Name="adorned"/>
+                            </Grid>
+                        </ControlTemplate>
+
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
 
         </ResourceDictionary>

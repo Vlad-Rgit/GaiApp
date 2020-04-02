@@ -25,7 +25,7 @@ namespace GaiApp.ViewModels.Abstracts
             set
             {
                 _beginValue = value;
-                Search();
+                Search(this, new EventArgs());
             }
         }
         public dynamic EndValue
@@ -34,7 +34,7 @@ namespace GaiApp.ViewModels.Abstracts
             set
             {
                 _endValue = value;
-                Search();
+                Search(this, new EventArgs());
             }
         }
 
@@ -70,16 +70,16 @@ namespace GaiApp.ViewModels.Abstracts
                 RangeProperties[0];
         }
 
-        public override void Search()
+        public override void Search(object sender, EventArgs args)
         {
-            base.Search();
+            base.Search(sender, args);
 
             foreach(var a in Entities.ToList())
             {
-                if (SelectedRangeProperty.GetValue(a) < BeginValue)
+                if (SelectedRangeProperty.GetDynamicValue(a) < BeginValue)
                     Entities.Remove(a);
 
-                if (SelectedRangeProperty.GetValue(a) > EndValue)
+                if (SelectedRangeProperty.GetDynamicValue(a) > EndValue)
                     Entities.Remove(a);
             }
         }

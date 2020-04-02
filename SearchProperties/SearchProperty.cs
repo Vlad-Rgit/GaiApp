@@ -4,13 +4,17 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace GaiApp.SearchProperties
 {
-    public struct SearchProperty
+    public abstract class SearchProperty
     {
-        public Control Control { get; set; }
         public PropertyInfo PropertyInfo { get; set; }
+
+        public virtual object GetValue(object owner)
+           => PropertyInfo?.GetValue(owner);
+
+        public virtual string GetStringValue(object owner)
+           => PropertyInfo?.GetValue(owner).ToString();
     }
 }

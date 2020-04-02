@@ -5,6 +5,7 @@ namespace GaiApp.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using GaiApp.Attributes;
 
     [Table("Policeman")]
     public partial class Policeman : Entity
@@ -19,18 +20,22 @@ namespace GaiApp.Models
 
         [Key]
         [StringLength(50)]
+        [SearchProperty]
         public string PolicemanNumber { get; set; }
 
         [Required]
         [StringLength(255)]
+        [SearchProperty]
         public string FirstName { get; set; }
 
         [Required]
         [StringLength(255)]
+        [SearchProperty]
         public string LastName { get; set; }
 
         [Required]
         [StringLength(255)]
+        [SearchProperty]
         public string Patronymic { get; set; }
 
         public byte[] Photo { get; set; }
