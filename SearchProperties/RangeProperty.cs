@@ -8,10 +8,11 @@ using System.Windows.Controls;
 
 namespace GaiApp.SearchProperties
 {
-    public class RangeProperty : SearchProperty
+    public struct RangeProperty
     {
         public Control BeginControl { get; set; }
         public Control EndControl { get; set; }
+        public PropertyInfo PropertyInfo { get; set; }
 
         public dynamic GetDynamicValue(object owner)
              => PropertyInfo?.GetValue(owner);

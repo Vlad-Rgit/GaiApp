@@ -13,16 +13,33 @@ using GaiApp.SearchProperties;
 
 namespace GaiApp.Services
 {
-    public class ContainerManager
+    public static class ContainerManager
     { 
-        private ToStringConverter _converter
+
+        private readonly struct ContainerInfo
+        {
+            public ContainerInfo(Type controlType, Binding binding, DependencyProperty bindedProperty)
+                => (ControlType, Binding, BindedProperty) = (controlType, binding, bindedProperty);
+
+            public Type ControlType { get; }
+            public Binding Binding { get; }
+            public DependencyProperty BindedProperty { get; }
+        }
+
+        private static ToStringConverter _converter
             = new ToStringConverter();
 
-        public SingleProperty RegisterProperty(PropertyInfo propertyInfo)
+        private static Dictionary<SingleProperty, ContainerInfo> _containerInfos =
+            new Dictionary<SingleProperty, ContainerInfo>();
+
+        public static SingleProperty RegisterProperty(PropertyInfo propertyInfo)
         {
             SingleProperty searchProperty =
                 new SingleProperty() { PropertyInfo = propertyInfo };
 
+            Type controlType;
+            DependencyProperty bindedProperty;
+  
             Binding binding = new Binding();
             binding.Path = new PropertyPath("SearchString");
             binding.Mode = BindingMode.OneWayToSource;
@@ -31,22 +48,33 @@ namespace GaiApp.Services
             switch (propertyInfo.PropertyType.Name)
             {
                 case nameof(DateTime):
-                    searchProperty.Control = new DatePicker();
+                    controlType = typeof(DatePicker);
                     binding.Converter = _converter;
-                    searchProperty.Control
-                        .SetBinding(DatePicker.SelectedDateProperty, binding);
+                    bindedProperty = DatePicker.SelectedDateProperty;
                     break;
                 default:
-                    searchProperty.Control = new TextBox();                   
-                    searchProperty.Control
-                        .SetBinding(TextBox.TextProperty, binding);
+                    controlType = typeof(TextBox);
+                    bindedProperty = TextBox.TextProperty;
                     break;
             }
+
+            ContainerInfo info =
+                new ContainerInfo(controlType, binding, bindedProperty);
+
+            _containerInfos[searchProperty] = info;
 
             return searchProperty;
         }
 
-        public RangeProperty RegisterRangeProperty(PropertyInfo propertyInfo)
+        public static Control CreateSingleContainer(SingleProperty property)
+        {
+            ContainerInfo info = _containerInfos[property];
+            Control control =(Control) Activator.CreateInstance(info.ControlType);
+            control.SetBinding(info.BindedProperty, info.Binding);
+            return control;
+        }
+
+        public static RangeProperty RegisterRangeProperty(PropertyInfo propertyInfo)
         {
             RangeProperty searchProperty =
                 new RangeProperty() { PropertyInfo = propertyInfo };

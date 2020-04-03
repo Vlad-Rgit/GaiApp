@@ -64,8 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arguments\FilterArgs.cs" />
+    <Compile Include="Collectons\FilterCollection.cs" />
     <Compile Include="SearchProperties\Filter.cs" />
-    <Compile Include="SearchProperties\SearchProperty.cs" />
+    <Compile Include="Bases\NotifyingObject.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\DesicionsViewModel.cs" />
     <Compile Include="ViewModels\PunishmentsViewModel.cs" />

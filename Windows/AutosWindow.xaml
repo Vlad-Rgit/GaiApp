@@ -66,21 +66,28 @@
                         <DropShadowEffect/>
                     </Border.Effect>
                     <StackPanel>
-                        <ItemsControl ItemsSource="{Binding Filters}"
-                                      Margin="0,5">
+                        <ItemsControl ItemsSource="{Binding Filters}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <WrapPanel>
+                                    <WrapPanel Margin="0,0,0,5">
                                         <ComboBox x:Name="cmb" ItemsSource="{Binding ViewModel.SearchProperties, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                  SelectedItem="{Binding SearchProperty}" DisplayMemberPath="PropertyInfo.Name"
-                                                  Margin="0,0,5,0"/>
-                                        <ContentControl Content="{Binding ElementName=cmb, Path=SelectedItem.Control}" MinWidth="150"/>
+                                                  SelectedItem="{Binding SingleProperty}" DisplayMemberPath="PropertyInfo.Name"
+                                                  Margin="0,0,5,0" Width="200"
+                                                  SelectedIndex="0"/>
+                                        <ContentControl Content="{Binding SingleProperty.Control}" MinWidth="150"
+                                                        MaxWidth="200"/>
+                                        <Button Content="Удалить" Margin="5,0,0,0"
+                                                Padding="5,0" 
+                                                Command="{Binding ViewModel.DeleteFilterCommand, 
+                                            RelativeSource={RelativeSource AncestorType=Window}}"
+                                                CommandParameter="{Binding}"/>
                                     </WrapPanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                         <Button Style="{StaticResource MainButton}" Content="Добавить фильтр"
-                            Padding="5" Command="{Binding AddFilterCommand}"/>
+                            Padding="5" Command="{Binding AddFilterCommand}"
+                                HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Border>
             </Popup>

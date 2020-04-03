@@ -12,7 +12,7 @@ using GaiApp.EF.Repositories;
 
 namespace GaiApp.ViewModels.Abstracts
 {
-    public abstract class BaseViewModel<TEntity>: INotifyPropertyChanged 
+    public abstract class BaseViewModel<TEntity>: Bases.NotifyingObject
         where TEntity:Entity     
     {
         private RelayCommand<Type> _closeCommand;
@@ -33,9 +33,6 @@ namespace GaiApp.ViewModels.Abstracts
 
         public RelayCommand<Type> OpenArgWindowCommand =>
            _openArgWindowCommand ?? (_openArgWindowCommand = new RelayCommand<Type>(OpenArgWindow));
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void CloseWindow(Type windowType)
         {
@@ -61,9 +58,5 @@ namespace GaiApp.ViewModels.Abstracts
                  .CreateArgEntityWindow(windowType, null);
         }
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string callerName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(callerName));
-        }
     }
 }

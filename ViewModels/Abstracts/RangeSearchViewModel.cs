@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using GaiApp.Attributes;
 using GaiApp.Models;
 using GaiApp.SearchProperties;
+using GaiApp.Services;
 
 namespace GaiApp.ViewModels.Abstracts
 {
@@ -60,7 +61,7 @@ namespace GaiApp.ViewModels.Abstracts
                 if (attribute != null)
                 {
                     RangeProperty searchProperty =
-                         _containerManager.RegisterRangeProperty(p);
+                         ContainerManager.RegisterRangeProperty(p);
 
                     RangeProperties.Add(searchProperty);
                 }

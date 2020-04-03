@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using GaiApp.Commands;
+using GaiApp.Collectons;
 
 namespace GaiApp.ViewModels.Abstracts
 {
@@ -17,31 +18,28 @@ namespace GaiApp.ViewModels.Abstracts
         where TEntity : Entity
     {
         private RelayCommand _addFilterCommand;
-
-
-        protected ContainerManager _containerManager;
+        private RelayCommand<Filter> _deleteFilterCommand;
         
-        public List<SingleProperty> SearchProperties { get; set; }
-            = new List<SingleProperty>();
+        public ObservableCollection<SingleProperty> SearchProperties { get; set; }
+            = new ObservableCollection<SingleProperty>();
 
-        public ObservableCollection<Filter> Filters { get; set; }
-        = new ObservableCollection<Filter>();
+        public FilterCollection Filters { get; set; } = new FilterCollection();
 
 
         public RelayCommand AddFilterCommand =>
             _addFilterCommand ?? (_addFilterCommand = new RelayCommand(AddFilter));
 
-    
+        public RelayCommand<Filter> DeleteFilterCommand =>
+            _deleteFilterCommand ?? (_deleteFilterCommand = new RelayCommand<Filter>(DeleteFilter));
 
 
         public SearchViewModel()
         {
-            _containerManager = new ContainerManager();
-
+        
             foreach(var p in
                 PropertySearcher.GetSearchProperties(typeof(TEntity)))
             {
-                SingleProperty property = _containerManager.RegisterProperty(p);
+                SingleProperty property = ContainerManager.RegisterProperty(p);
                 SearchProperties.Add(property);
             }
         }
@@ -49,9 +47,13 @@ namespace GaiApp.ViewModels.Abstracts
         public virtual void AddFilter()
         {
             Filter filter = new Filter();
-            filter.SearchStringUpdated += Search;
-            filter.SearchProperty = SearchProperties[0];
+            filter.FilterExecute += Search;   
             Filters.Add(filter);
+        }
+
+        public virtual void DeleteFilter(Filter filter)
+        {
+            Filters.Remove(filter);
         }
 
         public virtual void Search(object sender, EventArgs args)
@@ -66,7 +68,7 @@ namespace GaiApp.ViewModels.Abstracts
                 bool isNested = true;
 
                 object owner;
-                Type ownerType = f.SearchProperty.PropertyInfo.DeclaringType;
+                Type ownerType = f.SingleProperty.PropertyInfo.DeclaringType;
 
                 if (typeof(TEntity) == ownerType)
                     isNested = false;
@@ -79,8 +81,7 @@ namespace GaiApp.ViewModels.Abstracts
                     else
                         owner = a;
 
-                    if (!f.SearchProperty.GetStringValue(owner)
-                        .Contains(f.SearchString))
+                    if (!f.IsContainsSearchString(owner))
                     {
                         temp.Remove(a);
                     }

@@ -8,8 +8,16 @@ using System.Windows.Controls;
 
 namespace GaiApp.SearchProperties
 {
-    public class SingleProperty : SearchProperty
+    public struct SingleProperty 
     {
         public Control Control { get; set; }
+        public PropertyInfo PropertyInfo { get; set; }
+
+        public object GetValue(object owner)
+            => PropertyInfo.GetValue(owner);
+
+        public string GetStringValue(object owner)
+            => PropertyInfo.GetValue(owner).ToString();
     }
+
 }
